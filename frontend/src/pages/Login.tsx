@@ -6,7 +6,7 @@ function Login() {
     return (
         <div className="bg-gray-50 min-h-screen py-40">
             <div className=" mx-auto">
-                <div className="flex w-8/12 rounded-2xl  mx-auto shadow-lg">
+                <div className="flex w-8/12 rounded-2xl  mx-auto shadow-lg overflow-hidden">
                     <div className="py-16 px-12 w-1/2 bg-purple-300 "> </div>
                     <div className="py-16 px-12 w-1/2 bg-white">
                         <div id="login-header" className="h-auto">

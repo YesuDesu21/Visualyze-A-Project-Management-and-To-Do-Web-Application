@@ -1,0 +1,32 @@
+interface UserRegistrationData {
+    first_name: string;
+    last_name: string;
+    username: string;
+    email: string;
+    password: string;
+    country_code: string;
+    phone_number: string;
+    birth_date: string;
+    accept_term: boolean;
+}
+
+const BASE_URL = "http://127.0.0.1:8000";
+
+export const handleRegister = async (formData: UserRegistrationData) => {
+    const response = await fetch(`${BASE_URL}/register/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+    });
+    return response.json();
+};
+
+// Exported separately so Login.tsx can use it
+export const handleLogin = async (formData: UserRegistrationData) => {
+    const response = await fetch(`${BASE_URL}/login/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+    });
+    return response.json();
+};
