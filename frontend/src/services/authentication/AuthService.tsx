@@ -13,12 +13,25 @@ interface UserRegistrationData {
 const BASE_URL = "http://127.0.0.1:8000";
 
 export const handleRegister = async (formData: UserRegistrationData) => {
-    const response = await fetch(`${BASE_URL}/register/`, {
+    const response = await fetch(`${BASE_URL}/VisualyzeBackend/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
     });
-    return response.json();
+    console.log(response.json);
+    return await response.json();
+};
+
+export const getCountryCodes = async () => {
+    const response = await fetch(
+        `${BASE_URL}/VisualyzeBackend/api/countries/`,
+        {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        }
+    );
+
+    return await response.json();
 };
 
 // Exported separately so Login.tsx can use it
