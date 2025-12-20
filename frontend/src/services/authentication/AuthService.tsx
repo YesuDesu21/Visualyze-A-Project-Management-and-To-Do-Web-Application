@@ -10,9 +10,14 @@ interface UserRegistrationData {
     accept_term: boolean;
 }
 
+interface UserLoginData {
+    username: string;
+    password: string;
+}
+
 const BASE_URL = "http://127.0.0.1:8000";
 
-export const handleRegister = async (formData: UserRegistrationData) => {
+export const handleRegister = async (formData: UserLoginData) => {
     const response = await fetch(`${BASE_URL}/VisualyzeBackend/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,11 +40,12 @@ export const getCountryCodes = async () => {
 };
 
 // Exported separately so Login.tsx can use it
-export const handleLogin = async (formData: UserRegistrationData) => {
-    const response = await fetch(`${BASE_URL}/login/`, {
+export const handleLogin = async (formData: UserLoginData) => {
+    const response = await fetch(`${BASE_URL}/VisualyzeBackend/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
     });
+    console.log("Login form Sent to the backend: ", response.json());
     return response.json();
 };

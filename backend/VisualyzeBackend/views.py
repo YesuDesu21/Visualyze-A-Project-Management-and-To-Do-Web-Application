@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.db import IntegrityError
-from django.views.decorators.csrf import csrf_exempt 
+
 from .models import *
 from . serializer import *
 import requests
@@ -62,3 +63,22 @@ class RegisterView(APIView):
         except Exception as e:
             print(f"An error has occured: {e}")
             return JsonResponse({"error": str(e)}, status=500)
+        
+class LoginView(APIView):
+    def post(self, request):
+        try:
+            print("login view called")
+            username = request.data.get('username')
+            password = request.data.get('password')
+            
+            user = authenticate(request, username = username, password = password)
+            
+            if user is not None:
+                login(request, user)
+                return Response({"message": "Login successful!"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        except:
+            return {'status':'error'}
+            
+            

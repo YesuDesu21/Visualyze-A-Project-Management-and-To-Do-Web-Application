@@ -1,8 +1,38 @@
 import Logo from "../assets/visualyze-logo.svg?react";
 import { Link } from "react-router-dom";
 import LoginButton from "../components/Button.tsx";
+import { handleLogin as HandleLogin } from "../services/authentication/AuthService.tsx";
+import { useState } from "react";
 
 function Login() {
+    const [formData, setFormData] = useState({
+        username: "",
+        password: "",
+    });
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
+
+        //so that you can type on first and last name fields
+        const stateKey = name;
+        setFormData((prev) => ({
+            ...prev,
+            [stateKey]: value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+            await HandleLogin(formData);
+        } catch (error) {
+            console.log("Login error: ", error);
+        }
+    };
+
     return (
         <div className="bg-gray-50 min-h-screen py-40">
             <div className=" mx-auto">
@@ -22,15 +52,20 @@ function Login() {
                             </p>
                         </div>
                         <div className="space-y-3 ">
-                            <form className="space-y-6 flex flex-col">
+                            <form
+                                className="space-y-6 flex flex-col"
+                                onSubmit={handleSubmit}
+                                method="POST"
+                            >
                                 <h2 className="text-3xl font-bold">Login</h2>
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="username">Username</label>
                                 <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
+                                    type="text"
+                                    name="username"
                                     className="border border-black-400 rounded-md items-center min-h-10"
-                                    placeholder="email..."
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    placeholder="username..."
                                 />
 
                                 <label htmlFor="password">Password</label>
@@ -39,6 +74,8 @@ function Login() {
                                     id="password"
                                     name="password"
                                     className="border border-black-400 rounded-md items-center min-h-10"
+                                    value={formData.password}
+                                    onChange={handleChange}
                                     placeholder="password..."
                                 />
                                 <p>
