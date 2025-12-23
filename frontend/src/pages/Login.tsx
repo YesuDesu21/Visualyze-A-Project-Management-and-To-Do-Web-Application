@@ -84,7 +84,7 @@ function Login() {
                                         to="/Register"
                                         className="text-purple-400 hover:text-purple-500"
                                     >
-                                        Login
+                                        Register
                                     </Link>
                                 </p>
 

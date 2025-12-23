@@ -46,6 +46,9 @@ export const handleLogin = async (formData: UserLoginData) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
     });
-    console.log("Login form Sent to the backend: ", response.json());
-    return response.json();
+
+    const data = await response.json();
+
+    console.log("Login form Sent to the backend: ", data);
+    return data;
 };
