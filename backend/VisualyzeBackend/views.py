@@ -1,22 +1,16 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
 from django.db import IntegrityError
-
-from .models import *
-from . serializer import *
+from django.http import JsonResponse
 import requests
-import json
+
+# Rest Framework Imports
 from rest_framework.views import APIView 
 from rest_framework.response import Response
+from rest_framework import status 
+import json
 
-# Create your views here. mostly JSON API is used here
-"""
-Django views are a core component of the framework that handle the logic for how 
-a web application responds to a user's request. They act as the "middleman" between the database
-(models) and the user interface (templates), processing the request, fetching necessary data, and
-returning an appropriate response. 
-"""
+from .models import User
+from .serializer import UserSerializer
         
 def get_country_codes(request):
     url = 'https://restcountries.com/v3.1/all?fields=name,idd'
@@ -45,7 +39,7 @@ class RegisterView(APIView):
         try:
             data = json.loads(request.body)
             
-            user = User.objects().create_user(
+            user = User.objects.create_user(
                 #user id is handled in model
                 first_name = data['first_name'],
                 last_name = data['last_name'],

@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'VisualyzeBackend',
+    
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+
+    'VisualyzeBackend', 
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 CORS_ALLOW_CREDENTIALS = True
+AUTH_USER_MODEL = 'VisualyzeBackend.User'
